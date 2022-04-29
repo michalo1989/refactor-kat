@@ -20,7 +20,8 @@ final class GildedRose
             $item->quality++;
 
             if ($item->name === 'Backstage passes to a TAFKAL80ETC concert') {
-                $item->quality = $this->getQualityForBackstagePasses($item);
+                $item->quality = $this->getQualityBySellIn($item, 11);
+                $item->quality = $this->getQualityBySellIn($item, 6);
             }
         }
 
@@ -38,12 +39,9 @@ final class GildedRose
         return $name !== 'Aged Brie' && $name !== 'Backstage passes to a TAFKAL80ETC concert';
     }
 
-    private function getQualityForBackstagePasses($item): int
+    private function getQualityBySellIn($item, $sellInValue): int
     {
-        if ($item->sell_in < 11 && $item->quality < 50) {
-            $item->quality++;
-        }
-        if ($item->sell_in < 6 && $item->quality < 50) {
+        if ($item->sell_in < $sellInValue && $item->quality < 50) {
             $item->quality++;
         }
 
